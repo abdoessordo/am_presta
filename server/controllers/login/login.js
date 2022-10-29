@@ -13,7 +13,6 @@ module.exports = async (req, res) => {
       return res.send({ status: false, msg: "Check parameters" });
     }
     const user = await User.findOne({
-
       include: [
         {
           model: Collaborateur,
@@ -27,7 +26,8 @@ module.exports = async (req, res) => {
         },
       ],
       where: {
-	      [Op.or]: { username, email: username } },
+        [Op.or]: { username, email: username },
+      },
     });
 
     if (user === null)
@@ -35,7 +35,6 @@ module.exports = async (req, res) => {
 
     const pep = process.env.PEPPER;
     let changedpass = "";
-
 
     // start - BRICOLE DYAL DELETEDAT
     const checkSuperadmin = user.SuperAdmin ? true : false;
@@ -45,7 +44,7 @@ module.exports = async (req, res) => {
         return res.send({ status: false, msg: "Societe deleted" });
       }
     }
-	      }
+
     // end - BRICOLE DYAL DELETEDAT
     const checkUser = await argon2.verify(user.password, password + pep);
     if (checkUser) {
@@ -79,8 +78,8 @@ module.exports = async (req, res) => {
 
       res.cookie("jbid", refreshtoken, {
         httpOnly: true,
-       // sameSite: "None",
-              secure: true,
+        // sameSite: "None",
+        secure: true,
       });
       accesstoken = sign(payload, process.env.JWTSALT, {
         expiresIn: "15m",

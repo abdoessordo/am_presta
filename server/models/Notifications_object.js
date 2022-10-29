@@ -16,6 +16,20 @@ const Notifications_object = (db) => {
       },
     },
     {
+      // hooks: {
+      //   afterUpdate: async (notif) => {
+
+      //     ws = connections.get(recepteurCollab.UserId);
+      //     console.log("ws=", recepteurCollab.UserId);
+      //     if (ws) {
+      //       ws.send(
+      //         JSON.stringify({
+      //           type: "notif",
+      //         })
+      //       );
+      //     }
+      //   },
+      // },
       Sequelize,
       paranoid: true,
 

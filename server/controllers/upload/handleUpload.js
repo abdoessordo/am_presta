@@ -2,6 +2,8 @@ const { MulterError } = require("multer");
 const db = require("../../config/database");
 const { Collaborateur, Cours, Provider, Societe } = db.models;
 const upload = require("./upload");
+
+
 module.exports = async (req, res, err) => {
   console.log("error", err, req.file);
   if (err instanceof MulterError) {
@@ -11,6 +13,7 @@ module.exports = async (req, res, err) => {
     return res.send({ status: false, msg: "No file sent" });
   }
   const { model, id } = req.body;
+  
   if (model == "cours") {
     Model = Cours;
   } else if (model == "societe") {
