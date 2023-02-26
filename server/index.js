@@ -49,19 +49,19 @@ try {
 var whitelist = [
   "https://www.institute-eca.ma:58355",
   "https://institute-eca.ma:58355",
-  "http://localhost:3000/",
+  "http://localhost:3000",
 ];
 var corsOptions = {
   credentials: true,
-  // origin: function (origin, callback) {
-  //   console.log(origin);
-  //   if (whitelist.indexOf(origin) !== -1 || !origin) {
-  //     callback(null, true);
-  //   } else {
-  //     callback(new Error("Not allowed by CORS"));
-  //   }
-  // },
-  origin: "*",
+  origin: function (origin, callback) {
+    // console.log(origin);
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  // origin: "*",
 };
 
 app.use(cors(corsOptions));
